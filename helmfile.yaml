@@ -1,0 +1,52 @@
+releases:
+  - name: istio-base
+    namespace: istio-system
+    chart: istio/base
+    version: 1.15.0
+    values:
+      - values/values-istio-base.yaml
+
+  - name: istiod
+    namespace: istio-system
+    chart: istio/istiod
+    version: 1.15.0
+    values:
+      - values/values-istiod.yaml
+
+  - name: kiali
+    namespace: istio-system
+    chart: kiali/kiali-server
+    version: 1.56.1
+    values:
+      - values/values-kiali.yaml
+
+  - name: prometheus-stack
+    namespace: monitoring
+    chart: prometheus-community/kube-prometheus-stack
+    version: 40.1.0
+    values:
+      - values/values-prometheus-stack.yaml
+
+  - name: loki-stack
+    namespace: monitoring
+    chart: grafana/loki-stack
+    version: 2.8.2
+    values:
+      - values/values-loki-stack.yaml
+
+  - name: tempo
+    namespace: monitoring
+    chart: grafana/tempo
+    version: 0.16.2
+    values:
+      - values/values-tempo.yaml
+
+repositories:
+  - name: istio
+    url: https://istio-release.storage.googleapis.com/charts
+  - name: kiali
+    url: https://kiali.org/helm-charts/
+  - name: prometheus-community
+    url: https://prometheus-community.github.io/helm-charts
+  - name: grafana
+    url: https://grafana.github.io/helm-charts

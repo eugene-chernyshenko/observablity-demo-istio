@@ -1,0 +1,25 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: backend
+  namespace: demo
+spec:
+  hosts:
+  - backend
+  http:
+  - name: backend-route
+    route:
+    - destination:
+        host: backend
+        subset: v1
+      weight: 100
+    - destination:
+        host: backend
+        subset: v2
+      weight: 0
+    # # retries
+    # retries:
+    #   attempts: 1
+    #   perTryTimeout: 2s
+    #   retryOn: 5xx
+    #   # retryOn: gateway-error,connect-failure,refused-stream

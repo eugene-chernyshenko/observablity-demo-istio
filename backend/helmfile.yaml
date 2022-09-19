@@ -1,0 +1,21 @@
+releases:
+  # - name: backend
+  #   namespace: demo
+  #   chart: ./charts/backend
+  #   version: ""
+  #   values:
+  #     - values.yaml
+
+  - name: backend-v1
+    namespace: demo
+    chart: ./charts/backend
+    version: ""
+    values:
+      - values-v1.yaml
+
+  - name: backend-v2
+    namespace: demo
+    chart: ./charts/backend
+    version: ""
+    values:
+      - values-v2.yaml

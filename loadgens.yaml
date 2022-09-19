@@ -1,0 +1,50 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: loadgen-ok
+  namespace: demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: loadgen-ok
+  template:
+    metadata:
+      labels:
+        app: loadgen-ok
+        sidecar.istio.io/inject: "true"
+    spec:
+      containers:
+      - name: loadgen
+        image: alpine:3.14
+        command:
+        - sh
+        - -c
+        args:
+        - while sleep 1; do wget -O - http://frontend:3000/ok ; done
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: loadgen-fail
+  namespace: demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: loadgen-fail
+  template:
+    metadata:
+      labels:
+        app: loadgen-fail
+        sidecar.istio.io/inject: "true"
+    spec:
+      containers:
+      - name: loadgen
+        image: alpine:3.14
+        command:
+        - sh
+        - -c
+        args:
+        - while sleep 5; do wget -O - http://frontend:3000/fail ; done

@@ -1,0 +1,59 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: backend
+  namespace: demo
+spec:
+  host: backend
+  subsets:
+  - name: v1
+    labels:
+      app.kubernetes.io/name: backend
+      app.kubernetes.io/version: v1
+  - name: v2
+    labels:
+      app.kubernetes.io/name: backend
+      app.kubernetes.io/version: v2
+  # # Circuit Breaker
+  # trafficPolicy:
+  #   connectionPool:
+  #     http:
+  #       http1MaxPendingRequests: 1
+  #       maxRequestsPerConnection: 1
+  #       maxRetries: 0
+  #   outlierDetection:
+  #     consecutive5xxErrors: 1
+  #     interval: 30s
+  #     baseEjectionTime: 1m
+  #     maxEjectionPercent: 100
+
+# ---
+# apiVersion: networking.istio.io/v1alpha3
+# kind: DestinationRule
+# metadata:
+#   name: bar
+#   namespace: demo
+# spec:
+#   host: backend-v1
+#   subsets:
+#   - name: v1
+#     labels:
+#       app.kubernetes.io/name: backend
+#       app.kubernetes.io/version: v1
+#   - name: v2
+#     labels:
+#       app.kubernetes.io/name: backend
+#       app.kubernetes.io/version: v2
+# ---
+# apiVersion: networking.istio.io/v1alpha3
+# kind: DestinationRule
+# metadata:
+#   name: baz
+#   namespace: demo
+# spec:
+#   host: backend-v2
+#   subsets:
+#   - name: v2
+#     labels:
+#       app.kubernetes.io/name: backend
+#       app.kubernetes.io/version: v2

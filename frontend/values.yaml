@@ -1,0 +1,26 @@
+replicaCount: 1
+
+image:
+  repository: echern/demo-frontend
+  tag: 0.0.6
+
+nameOverride: ""
+fullnameOverride: ""
+
+podAdditionalLabels:
+  sidecar.istio.io/inject: "true"
+
+service:
+  type: ClusterIP
+  port: 3000
+
+env:
+  - name: BACKEND_HOST
+    value: backend
+  - name: BACKEND_PORT
+    value: '3000'
+  # opentelemetry
+  - name: OTEL_EXPORTER_OTLP_ENDPOINT
+    value: http://tempo.monitoring:4317
+  - name: OTEL_SERVICE_NAME
+    value: frontend

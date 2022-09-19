@@ -1,0 +1,21 @@
+spec:
+  external_services:
+    tracing:
+      # Enabled by default. Kiali will anyway fallback to disabled if
+      # Jaeger is unreachable.
+      enabled: true
+      # Jaeger service name is "tracing" and is in the "telemetry" namespace.
+      # Make sure the URL you provide corresponds to the non-GRPC enabled endpoint
+      # if you set "use_grpc" to false.
+      in_cluster_url: 'http://tracing.telemetry:16685/jaeger'
+      use_grpc: true
+      # Public facing URL of Jaeger
+      url: 'http://my-jaeger-host/jaeger'
+
+
+istio_requests_total{namespace="demo", source_workload="frontend", destination_workload="backend", reporter="source"}
+istio_requests_total{namespace="demo", source_workload="frontend", destination_workload="backend", reporter="source", response_code=~"5.+"}
+
+
+Namespace	istio-injection	enabled	disabled
+Pod	sidecar.istio.io/inject	"true"	"false"

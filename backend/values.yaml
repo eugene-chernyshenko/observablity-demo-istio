@@ -1,0 +1,15 @@
+replicaCount: 1
+
+image:
+  repository: echern/demo-backend
+  tag: 0.0.1
+
+nameOverride: ""
+fullnameOverride: ""
+
+podAdditionalLabels:
+  sidecar.istio.io/inject: "true"
+
+service:
+  type: ClusterIP
+  port: 3000
