@@ -24,3 +24,5 @@ env:
     value: http://tempo.monitoring:4317
   - name: OTEL_SERVICE_NAME
     value: frontend
+  # - name: OTEL_PROPAGATORS
+  #   value: tracecontext,baggage,b3,b3multi
